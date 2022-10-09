@@ -9,6 +9,18 @@ export default function Checkout(){
     const [isLoading, setIsLoading] = useState(true);
 
     const [paginationLimit, setPaginationLimit] = useState(5);
+    const [paginationLoadingStatus, setPaginationLoadingStatus] = useState(false);
+
+    const handlePaginationButton = () => {
+        setPaginationLoadingStatus(prevBool => !prevBool);
+            setTimeout(() => {
+                setPaginationLimit(prev => {
+                    if(prev + paginationLimit > dataCheckout.length + paginationLimit) return prev;
+                    return prev + 5;
+                });
+                setPaginationLoadingStatus(prevBool => !prevBool);
+        }, 2000)
+    }
 
     useEffect(() => {
         (async () => {
@@ -28,13 +40,11 @@ export default function Checkout(){
         })();
     }, []);
 
-    console.log(dataCheckout);
-
     return (
         <LayoutAdmin active="checkout">
             <section id="checkout" className="p-4 pt-24 md:pt-8 md:pl-[250px] lg:pl-[300px]">
                 <h1 className="font-semibold text-2xl mb-6 sm:mb-0">Total {`(${dataCheckout.length})`} Checkouts</h1>
-                <div className="container mx-auto px-4 sm:px-8 max-w-3xl">
+                <div className="container mx-auto px-4 sm:px-8 max-w-4xl">
                     <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                         <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
                             <table className="min-w-full leading-normal">
@@ -88,7 +98,7 @@ export default function Checkout(){
                                     }
                                 </tbody>
                             </table>
-                            {/* <div className="flex justify-center">
+                            <div className="flex justify-center">
                                 {isLoading && <p className="text-2xl font-semibold">Data is Loading...</p>}
                                 <button type="button"
                                 className={`py-2.5 mt-10 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-slate-100 rounded-lg border border-gray-300 hover:bg-gray-200 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed`}
@@ -96,7 +106,7 @@ export default function Checkout(){
                                 onClick={handlePaginationButton}>
                                 {paginationLoadingStatus ? 'Loading...' : 'Load more'}
                                 </button>
-                            </div> */}
+                            </div>
                         </div>
                     </div>
                 </div>
