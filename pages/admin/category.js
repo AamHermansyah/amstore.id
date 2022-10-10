@@ -7,11 +7,13 @@ import LayoutAdmin from "../../widget/LayoutAdmin";
 export default function Category(){
     const [dataCategory, setDataCategory] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [paginationLimit, setPaginationLimit] = useState(5);
-    const [paginationLoadingStatus, setPaginationLoadingStatus] = useState(false);
     const [displayAlert, setDisplayAlert] = useState(false);
     const [categoryIdDelete, setCategoryIdDelete] = useState(null);
     const [fetchAddAndEditStatus, setFetchAddAndEditStatus] = useState(false);
+
+    const [paginationLimit, setPaginationLimit] = useState(5);
+    const [paginationLoadingStatus, setPaginationLoadingStatus] = useState(false);
+    const [isLastPagination, setIsLastPagination] = useState(false);
 
     const [modeInput, setModeInput] = useState('add');
     const [categoryIdEdit, setCategoryIdEdit] = useState(null);
@@ -21,7 +23,7 @@ export default function Category(){
         setPaginationLoadingStatus(prevBool => !prevBool);
             setTimeout(() => {
                 setPaginationLimit(prev => {
-                    if(prev + paginationLimit > dataCategory.length + paginationLimit) return prev;
+                    prev + 5 >= dataCategory.length && setIsLastPagination(true);
                     return prev + 5;
                 });
                 setPaginationLoadingStatus(prevBool => !prevBool);
@@ -182,7 +184,7 @@ export default function Category(){
                             </table>
                             <div className="flex justify-center">
                                 <button type="button"
-                                className={`py-2.5 mt-10 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-slate-100 rounded-lg border border-gray-300 hover:bg-gray-200 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed`}
+                                className={`${isLastPagination ? 'hidden' : ''} py-2.5 mt-10 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-slate-100 rounded-lg border border-gray-300 hover:bg-gray-200 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed`}
                                 disabled={paginationLoadingStatus}
                                 onClick={handlePaginationButton}>
                                 {paginationLoadingStatus ? 'Loading...' : 'Load more'}
