@@ -9,13 +9,14 @@ export default function Checkout(){
     const [isLoading, setIsLoading] = useState(true);
 
     const [paginationLimit, setPaginationLimit] = useState(5);
+    const [isLastPagination, setIsLastPagination] = useState(false);
     const [paginationLoadingStatus, setPaginationLoadingStatus] = useState(false);
 
     const handlePaginationButton = () => {
         setPaginationLoadingStatus(prevBool => !prevBool);
             setTimeout(() => {
                 setPaginationLimit(prev => {
-                    if(prev + paginationLimit > dataCheckout.length + paginationLimit) return prev;
+                    prev + 5 >= dataCheckout.length && setIsLastPagination(true);
                     return prev + 5;
                 });
                 setPaginationLoadingStatus(prevBool => !prevBool);
@@ -68,7 +69,7 @@ export default function Checkout(){
                                     {dataCheckout.length > 0 && dataCheckout
                                         .filter((data, index) => index < paginationLimit)
                                         .map(data => (
-                                            <tr>
+                                            <tr key={data.id}>
                                                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                                     <p className="text-gray-900 whitespace-no-wrap">
                                                         {data.user.name}
@@ -101,7 +102,7 @@ export default function Checkout(){
                             <div className="flex justify-center">
                                 {isLoading && <p className="text-2xl font-semibold">Data is Loading...</p>}
                                 <button type="button"
-                                className={`py-2.5 mt-10 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-slate-100 rounded-lg border border-gray-300 hover:bg-gray-200 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed`}
+                                className={`${isLastPagination ? 'hidden' : ''} py-2.5 mt-10 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-slate-100 rounded-lg border border-gray-300 hover:bg-gray-200 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed`}
                                 disabled={paginationLoadingStatus}
                                 onClick={handlePaginationButton}>
                                 {paginationLoadingStatus ? 'Loading...' : 'Load more'}
