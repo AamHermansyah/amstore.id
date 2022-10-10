@@ -54,8 +54,10 @@ export default function DetailDataProduct(){
     }
 
     useEffect(() => {
-        handleFetchData();
-    }, []);
+        if(router.isReady){
+            handleFetchData();
+        }
+    }, [router.isReady]);
 
     return (
         <Layout>
