@@ -105,7 +105,7 @@ export default function Transaction(){
                                     </li>
                                 )) :
                                 <div>
-                                    <h3 className="text-lg py-4 leading-6 font-medium text-gray-900 dark:text-white">
+                                    <h3 className="text-lg py-4 leading-6 font-medium text-gray-900 dark:text-white text-center">
                                         Your transaction is empty, take add your favor product and let{"'"}s checkout.
                                     </h3>
                                 </div>
@@ -144,7 +144,7 @@ export default function Transaction(){
                                     </li>
                                 )) :
                                 <div>
-                                    <h3 className="text-lg py-4 leading-6 font-medium text-gray-900 dark:text-white">
+                                    <h3 className="text-lg py-4 leading-6 font-medium text-gray-900 dark:text-white text-center">
                                         Your transaction completed is empty.
                                     </h3>
                                     <div className="h-[7vh]" />
