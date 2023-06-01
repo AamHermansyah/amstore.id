@@ -115,7 +115,7 @@ export default function Checkout(){
                             dataCheckout.map(data => (
                                 <CardComponent key={data.id} data={data} />
                             )) :
-                            <h3 className="text-lg py-4 leading-6 font-medium text-gray-900 dark:text-white">
+                            <h3 className="text-lg py-4 leading-6 font-medium text-gray-900 dark:text-white text-center">
                                 Your cart is empty, take your favor product and let{"'"}s checkout.
                             </h3>
                         }
